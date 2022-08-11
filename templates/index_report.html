@@ -1,0 +1,287 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
+        <script>
+            function showReferenceImages(imgs) {
+              // Get the expanded image
+              var expandImgUsr = document.getElementById("expandedImgUsr");
+              var expandImgCmr = document.getElementById("expandedImgCmr");
+              // Get the image text
+              var imgTextUsr = document.getElementById("imgtextUsr");
+              var imgTextCmr = document.getElementById("imgtextCmr");
+              // Use the same src in the expanded image as the image being clicked on from the grid
+              var btnValue = imgs.value.split("|");
+              expandImgUsr.src = btnValue[0];
+              expandImgCmr.src = btnValue[1];
+              var imgLabel = btnValue[2];
+
+              signLabel.innerHTML = imgLabel;
+              
+              // Show the container element (hidden with CSS)
+              expandImgUsr.parentElement.style.display = "block";
+              expandImgCmr.parentElement.style.display = "block";
+            }
+        </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type=text/javascript>
+                $(function() {
+                  $('a#appendButton').on('click', function(e) {
+                    e.preventDefault()
+                    $.getJSON('/force_append',
+                        function(data) {
+                      //do nothing
+                    });
+                    return false;
+                  });
+                });
+        </script>
+        <script type=text/javascript>
+                $(function() {
+                  $('a#backspaceButton').on('click', function(e) {
+                    e.preventDefault()
+                    $.getJSON('/backspace',
+                        function(data) {
+                      //do nothing
+                    });
+                    return false;
+                  });
+                });
+        </script>
+        <script type=text/javascript>
+                $(function() {
+                  $('a#clearButton').on('click', function(e) {
+                    e.preventDefault()
+                    $.getJSON('/clear_output',
+                        function(data) {
+                      //do nothing
+                    });
+                    return false;
+                  });
+                });
+        </script>
+        <script type=text/javascript>
+                $(function() {
+                  $('a#appendSecondButton').on('click', function(e) {
+                    e.preventDefault()
+                    $.getJSON('/append_second',
+                        function(data) {
+                      //do nothing
+                    });
+                    return false;
+                  });
+                });
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <h1>Malaysian Sign Language Fingerspelling Recognizer</h1>
+        </header>
+
+        <main>
+            <section class="app-container">
+                <section class="main-section video" >
+                    <section class="sub-section webcam-feed">
+                        <h2>Webcam video feed</h2>
+                        <div><img src="{{ url_for('video_feed') }}"></div>
+                    </section>
+                    <section class="sub-section output-control">
+                        <h2>Output Control</h2>
+                        <div class="buttons-container">
+                            <div class="control-button">
+                                <a href=# id=appendButton><button>Append First</button></a>
+                            </div>
+                            <div class="control-button">
+                                <a href=# id=appendSecondButton><button>Append Second</button></a>
+                            </div>
+                            <div class="control-button">
+                                <a href=# id=backspaceButton><button>Backspace</button></a>
+                            </div>
+                            <div class="control-button">
+                                <a href=# id=clearButton><button>Clear Output</button></a>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                
+                <section class="main-section reference">
+                    <section class="sub-section reference-photos">
+                        <h2>Reference photos</h2>
+                        <h3 id="signLabel"></h3>
+                        <div class="photos-container">
+                            <div class="reference-user-view">
+                                <div class="container">
+                                    <img id="expandedImgUsr" style="width:100%">
+                                    <div id="imgtextUsr">User's viewpoint</div>
+                                </div>
+                            </div>
+                            <div class="reference-camera-view">
+                                <div class="container">
+                                    <img id="expandedImgCmr" style="width:100%">
+                                    <div id="imgtextCmr">Camera's viewpoint</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="sub-section reference-buttons">
+                        <h2>Select a sign to view the reference photos</h2>
+                        <div class="buttons-container">
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/A.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/A.JPEG') }}|A" onclick="showReferenceImages(this);">A</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/B.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/B.JPEG') }}|B" onclick="showReferenceImages(this);">B</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/C.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/C.JPEG') }}|C" onclick="showReferenceImages(this);">C</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/D.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/D.JPEG') }}|D" onclick="showReferenceImages(this);">D</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/E.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/E.JPEG') }}|E" onclick="showReferenceImages(this);">E</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/F.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/F.JPEG') }}|F" onclick="showReferenceImages(this);">F</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/G.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/G.JPEG') }}|G" onclick="showReferenceImages(this);">G</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/H.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/H.JPEG') }}|H" onclick="showReferenceImages(this);">H</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/I.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/I.JPEG') }}|I" onclick="showReferenceImages(this);">I</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/J_loop.gif') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/J_loop.gif') }}|J" onclick="showReferenceImages(this);">J</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/K.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/K.JPEG') }}|K" onclick="showReferenceImages(this);">K</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/L.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/L.JPEG') }}|L" onclick="showReferenceImages(this);">L</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/M.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/M.JPEG') }}|M" onclick="showReferenceImages(this);">M</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/N.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/N.JPEG') }}|N" onclick="showReferenceImages(this);">N</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/O.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/O.JPEG') }}|O" onclick="showReferenceImages(this);">O</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/P.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/P.JPEG') }}|P" onclick="showReferenceImages(this);">P</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/Q.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/Q.JPEG') }}|Q" onclick="showReferenceImages(this);">Q</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/R.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/R.JPEG') }}|R" onclick="showReferenceImages(this);">R</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/S.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/S.JPEG') }}|S" onclick="showReferenceImages(this);">S</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/T.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/T.JPEG') }}|T" onclick="showReferenceImages(this);">T</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/U.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/U.JPEG') }}|U" onclick="showReferenceImages(this);">U</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/V.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/V.JPEG') }}|V" onclick="showReferenceImages(this);">V</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/W.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/W.JPEG') }}|W" onclick="showReferenceImages(this);">W</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/X.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/X.JPEG') }}|X" onclick="showReferenceImages(this);">X</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/Y.JPEG') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/Y.JPEG') }}|Y" onclick="showReferenceImages(this);">Y</button>
+                            </div>
+                            <div class="reference-button alphabet-button">
+                                <button value="{{ url_for('static', filename='images/alphabets/User/Z_loop.gif') }}|{{ url_for('static',
+                                 filename='images/alphabets/Camera/Z_loop.gif') }}|Z" onclick="showReferenceImages(this);">Z</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/1.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/1.JPEG') }}|1" onclick="showReferenceImages(this);">1</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/2.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/2.JPEG') }}|2" onclick="showReferenceImages(this);">2</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/3.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/3.JPEG') }}|3" onclick="showReferenceImages(this);">3</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/4.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/4.JPEG') }}|4" onclick="showReferenceImages(this);">4</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/5.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/5.JPEG') }}|5" onclick="showReferenceImages(this);">5</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/6.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/6.JPEG') }}|6" onclick="showReferenceImages(this);">6</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/7.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/7.JPEG') }}|7" onclick="showReferenceImages(this);">7</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/8.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/8.JPEG') }}|8" onclick="showReferenceImages(this);">8</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/9.JPEG') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/9.JPEG') }}|9" onclick="showReferenceImages(this);">9</button>
+                            </div>
+                            <div class="reference-button number-button">
+                                <button value="{{ url_for('static', filename='images/numbers/User/10_loop.gif') }}|{{ url_for('static',
+                                 filename='images/numbers/Camera/10_loop.gif') }}|10" onclick="showReferenceImages(this);">10</button>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </main>
+
+        <footer>
+            <div class="learn-more">
+                <p>Capstone project by Lim Zhi Yu (0347568). All signs were referenced from <a href="https://www.bimsignbank.org/home">
+                    BIM Sign Bank</a>. Visit <a href="https://www.mymfdeaf.org/bahasa-isyarat-malaysia-bim">
+                        Malaysia Federation of the Deaf</a> to learn more about the Malaysian Sign Language.</p>
+            </div>
+        </footer>
+    </body>
+</html>
